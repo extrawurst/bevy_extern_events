@@ -31,3 +31,9 @@ fn test() {
     assert_eq!(app.world.resource::<MyEventResource>().0, 1);
 }
 ```
+
+## TODO
+
+- [ ] doc example
+- [ ] clippy
+- [ ] CI

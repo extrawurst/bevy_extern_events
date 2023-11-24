@@ -4,12 +4,11 @@ use bevy::prelude::*;
 use generic_global_variables::*;
 use once_cell::sync::OnceCell;
 
+/// wrapper from external events
 #[derive(Event, Default)]
 pub struct ExternEvent<T: Send + Sync + Default>(pub T);
 
-#[derive(Resource)]
-pub struct ExternEventQueueResource<T: Send + Sync + Default>(T);
-
+/// bevy plugin for convenient proper installation. registers the event and the polling system
 #[derive(Default)]
 pub struct ExternEventsPlugin<T>(PhantomData<T>);
 
@@ -19,10 +18,17 @@ where
 {
     fn build(&self, app: &mut App) {
         app.add_event::<ExternEvent<T>>()
-            .add_systems(PreUpdate, poll_events);
+            .add_systems(PreUpdate, poll_events_system);
     }
 }
 
+/// external entry point to queue events from anywhere from any thread
+pub fn queue_event<T: 'static + Send + Sync>(event: T) {
+    let arc = get_global(Mutex::<Vec<T>>::default);
+    arc.lock().unwrap().push(event);
+}
+
+/// solutionn to do generic global statics using `generic_global_variables`
 fn get_global<T: Send + Sync>(f: impl FnOnce() -> T) -> Entry<T> {
     static GLOBALS: OnceCell<GenericGlobal> = OnceCell::new();
 
@@ -30,12 +36,8 @@ fn get_global<T: Send + Sync>(f: impl FnOnce() -> T) -> Entry<T> {
     globals.get_or_init(f)
 }
 
-pub fn queue_event<T: 'static + Send + Sync>(event: T) {
-    let arc = get_global(Mutex::<Vec<T>>::default);
-    arc.lock().unwrap().push(event);
-}
-
-fn poll_events<T: 'static + Send + Sync + Default>(mut writer: EventWriter<ExternEvent<T>>) {
+/// bevy system to run `PreUpdate` polling the event queue and pushing each event into the `EventWriter`
+fn poll_events_system<T: 'static + Send + Sync + Default>(mut writer: EventWriter<ExternEvent<T>>) {
     let arc = get_global(Mutex::<Vec<T>>::default);
     while let Some(e) = arc.lock().unwrap().pop() {
         info!("poll event");
