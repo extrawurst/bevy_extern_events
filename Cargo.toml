@@ -1,6 +1,6 @@
 [package]
 name = "bevy_extern_events"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 readme = "readme.md"
 license = "MIT"
@@ -17,3 +17,7 @@ bevy = { version = "0.12", default-features = false, features = [
     "bevy_core_pipeline",
 ] }
 generic-global-variables = "0.1.1"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
