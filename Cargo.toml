@@ -2,6 +2,8 @@
 name = "bevy_extern_events"
 version = "0.1.0"
 edition = "2021"
+readme = "readme.md"
+description = "Bevy plugin for generic external events to be send to bevy EventReaders"
 
 [dependencies]
 once_cell = "1"
