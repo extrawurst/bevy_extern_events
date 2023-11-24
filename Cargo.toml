@@ -3,6 +3,11 @@ name = "bevy_extern_events"
 version = "0.1.0"
 edition = "2021"
 readme = "readme.md"
+license = "MIT"
+authors = ["extrawurst <mail@rusticorn.com>"]
+documentation = "https://docs.rs/bevy_extern_events"
+repository = "https://github.com/extrawurst/bevy_extern_events"
+keywords = ["bevy", "gamedev", "events"]
 description = "Bevy plugin for generic external events to be send to bevy EventReaders"
 
 [dependencies]
