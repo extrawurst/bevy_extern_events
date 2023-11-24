@@ -2,7 +2,7 @@
 
 usage example: 
 
-```rs
+```rust
 #[derive(Default)]
 pub struct MyEvent;
 
