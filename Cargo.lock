@@ -203,7 +203,7 @@ dependencies = [
 
 [[package]]
 name = "bevy_extern_events"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "bevy",
  "generic-global-variables",
