@@ -1,5 +1,8 @@
 # bevy_extern_events
 
+[![crates.io](https://img.shields.io/crates/v/bevy_extern_events.svg)](https://crates.io/crates/bevy_extern_events)
+[![docs](https://docs.rs/bevy_extern_events/badge.svg)](https://docs.rs/bevy_extern_events)
+
 usage example: 
 
 ```rust
