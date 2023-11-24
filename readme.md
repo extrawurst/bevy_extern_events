@@ -1,7 +1,8 @@
 # bevy_extern_events
 
 usage example: 
-```
+
+```rs
 #[derive(Default)]
 pub struct MyEvent;
 

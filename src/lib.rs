@@ -76,5 +76,9 @@ mod tests {
         app.update();
 
         assert_eq!(app.world.resource::<MyEventResource>().0, 1);
+
+        app.update();
+
+        assert_eq!(app.world.resource::<MyEventResource>().0, 1);
     }
 }
