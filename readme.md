@@ -37,6 +37,5 @@ fn test() {
 
 ## TODO
 
-- [ ] doc example
-- [ ] clippy
 - [ ] CI
+- [ ] clippy
