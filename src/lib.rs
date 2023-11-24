@@ -22,11 +22,16 @@
 //! fn test() {
 //!     let mut app = App::new();
 //!     app.init_resource::<MyEventResource>()
+//!         // register `ExternEventsPlugin` with our event type
 //!         .add_plugins(ExternEventsPlugin::<MyEvent>::default())
+//!         // register our system that will react to these events
 //!         .add_systems(Update, event_system);
-//!
+//!     
+//!     // can be called any thread, from anywhere (for example c ffi)
 //!     queue_event(MyEvent::default());
 //!
+//!     // next pre-update will forward extern events to the bevy events system
+//!     // this will trigger `event_system` of this example
 //!     app.update();
 //!
 //!     assert_eq!(app.world.resource::<MyEventResource>().0, 1);
@@ -116,6 +121,7 @@ mod tests {
 
         app.update();
 
+        // make sure no other event was forwarded
         assert_eq!(app.world.resource::<MyEventResource>().0, 1);
     }
 }
