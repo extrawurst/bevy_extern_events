@@ -1,3 +1,16 @@
+//! # Why
+//!
+//! Because at some point you might want to interact with code outside of Bevy
+//! (External SDKs, Native Platform Code, non-Bevy crates).
+//! With the help of this crate you can queue events from anywhere and
+//! they will be available via the typical `EventReader` mechanism inside your Bevy Systems.
+//!
+//! **Note** that this comes at the cost of us having a global static `RwLock`-based Queue
+//! that we poll every frame (`PreUpdate`) to forward into an `EventWriter`.
+//! Events are Boxed because I found no other way of having a global static generic Datatype without using `Any`.
+//!
+//! Therefore I suggest using this for non-every-frame interaction and rolling a custom solution otherwise.
+//!
 //! # Example:
 //!
 //! ```
